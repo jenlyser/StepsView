@@ -23,16 +23,19 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadSteps(){
         StepsView stepsView1=findViewById(R.id.steps1);
-        stepsView1.setSteps(mSteps).drawSteps();
+        stepsView1.setSteps(mSteps)
+                .setStepPadding(60)
+                .drawSteps();
 
 
         StepsView stepsView2=findViewById(R.id.steps2);
         stepsView2.setSteps(mSteps2)
                 .setAnimationType(StepsView.AnimationType.Scale)
                 .setTextMarginTop(30)
-                .setStepsColor(Color.GRAY)
-                .setProgressColor(Color.RED)
-                .setCurrentColor(Color.RED)
+                .setStepPadding(60)
+                .setStepsColor(Color.parseColor("#bbbbbb"))
+                .setProgressColor(Color.parseColor("#ff6666"))
+                .setCurrentColor(Color.parseColor("#ff6666"))
                 .setCurrentPosition(1)
                 .drawSteps();
 
@@ -40,10 +43,11 @@ public class MainActivity extends AppCompatActivity {
         stepsView3.setSteps(mSteps3)
                 .setAnimationType(StepsView.AnimationType.Alpha)
                 .setTextMarginTop(20)
-                .setStepsColor(Color.GRAY)
-                .setProgressColor(Color.RED)
-                .setCurrentColor(Color.RED)
-                .setAnimationColor(Color.DKGRAY)
+                .setStepPadding(60)
+                .setStepsColor(Color.parseColor("#bbbbbb"))
+                .setProgressColor(Color.parseColor("#ff6666"))
+                .setCurrentColor(Color.parseColor("#ff6666"))
+                .setAnimationColor(Color.parseColor("#0099cc"))
                 .setCurrentPosition(2)
                 .drawSteps();
 
@@ -52,12 +56,12 @@ public class MainActivity extends AppCompatActivity {
                 .setStepPadding(60)
                 .setAnimationType(StepsView.AnimationType.Scale)
                 .setTextMarginTop(20)
-                .setStepsColor(Color.GRAY)
-                .setProgressColor(Color.parseColor("#ff4040"))
-                .setCurrentColor(Color.parseColor("#ff4040"))
+                .setStepsColor(Color.parseColor("#bbbbbb"))
+                .setProgressColor(Color.parseColor("#ff6666"))
+                .setCurrentColor(Color.parseColor("#ff6666"))
                 .setAnimationColor(Color.WHITE)
                 .setTextMaxLine(2)
-                .setTextSize(16)
+                .setTextSize(13)
                 .setCurrentPosition(3)
                 .drawSteps();
 
@@ -65,9 +69,9 @@ public class MainActivity extends AppCompatActivity {
         stepsView5.setSteps(mSteps5)
                 .setStepPadding(70)
                 .setStepBarHeight(80)
-                .setStepsColor(Color.parseColor("#787878"))
-                .setProgressColor(Color.parseColor("#0f9933"))
-                .setCurrentColor(Color.parseColor("#0f9933"))
+                .setStepsColor(Color.parseColor("#bbbbbb"))
+                .setProgressColor(Color.parseColor("#0099cc"))
+                .setCurrentColor(Color.parseColor("#0099cc"))
                 .setAnimationType(StepsView.AnimationType.Scale)
                 .setTextMarginTop(30)
                 .setCircleRadius(20)
@@ -82,9 +86,9 @@ public class MainActivity extends AppCompatActivity {
                 .setStepPadding(80)
                 .setAnimationType(StepsView.AnimationType.Scale)
                 .setTextMarginTop(30)
-                .setStepsColor(Color.parseColor("#515151"))
-                .setProgressColor(Color.parseColor("#1296db"))
-                .setCurrentColor(Color.parseColor("#d4237a"))
+                .setStepsColor(Color.parseColor("#777777"))
+                .setProgressColor(Color.parseColor("#0099cc"))
+                .setCurrentColor(Color.parseColor("#ff6666"))
                 .setAnimationColor(Color.WHITE)
                 .setTextMaxLine(2)
                 .setCurrentPosition(1)
@@ -95,14 +99,14 @@ public class MainActivity extends AppCompatActivity {
                 .setStepPadding(80)
                 .setAnimationType(StepsView.AnimationType.Alpha)
                 .setTextMarginTop(30)
-                .setStepsColor(Color.parseColor("#515151"))
-                .setProgressColor(Color.parseColor("#1296db"))
-                .setCurrentColor(Color.parseColor("#d4237a"))
+                .setStepsColor(Color.parseColor("#777777"))
+                .setProgressColor(Color.parseColor("#0099cc"))
+                .setCurrentColor(Color.parseColor("#ff6666"))
                 .setStepTextColor(Color.BLACK)
                 .setStepCurrentTextColor(Color.BLACK)
                 .setStepProgressTextColor(Color.BLACK)
                 .setAnimationColor(Color.WHITE)
-                .setLineHeight(3)
+                .setLineHeight(5)
                 .setTextMaxLine(2)
                 .setCurrentPosition(1)
                 .drawSteps();

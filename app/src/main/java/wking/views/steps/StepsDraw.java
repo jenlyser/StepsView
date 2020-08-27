@@ -25,7 +25,7 @@ public class StepsDraw {
     private float mLineHeight = 8;//线的高度
     private float mCircleRadius = 16;//步骤圆的大小
     private float mCircleStrokeWidth = 5;//圆的宽度
-    private float  mStepPadding = 30;//内距
+    private float mStepPadding = 30;//内距
 
     private int mCurrentPosition;//当前运行到的位置
 
@@ -38,11 +38,13 @@ public class StepsDraw {
 
     /**
      * 设置步骤数量
+     *
      * @param size
      */
     public void setStepsSize(int size) {
         mNumOfStep = size;
     }
+
     /**
      * 设置当前进行到哪一步
      *
@@ -119,10 +121,10 @@ public class StepsDraw {
     /**
      * 设置内距
      *
-     * @param  mStepPadding
+     * @param mStepPadding
      */
-    public void setStepPadding(float  mStepPadding) {
-        this. mStepPadding =  mStepPadding;
+    public void setStepPadding(float mStepPadding) {
+        this.mStepPadding = mStepPadding;
     }
 
     /**
@@ -173,6 +175,7 @@ public class StepsDraw {
 
     /**
      * 获取圆形的y轴坐标
+     *
      * @return
      */
     public float getCenterY() {
@@ -182,6 +185,7 @@ public class StepsDraw {
 
     /**
      * 获取已经进行的步骤的颜色
+     *
      * @return
      */
     public int getProgressColor() {
@@ -190,6 +194,7 @@ public class StepsDraw {
 
     /**
      * 获取当前步骤的颜色
+     *
      * @return
      */
     public int getCurrentColor() {
@@ -198,6 +203,7 @@ public class StepsDraw {
 
     /**
      * 获取默认步骤的颜色
+     *
      * @return
      */
     public int getStepsColor() {
@@ -214,9 +220,9 @@ public class StepsDraw {
      */
     public void onSizeChanged(int width, int height, int oldWidth, int oldHeight) {
         mCenterY = 0.5f * mStepBarHeight;
-        mItemLeftX =  mStepPadding;
+        mItemLeftX = mStepPadding;
         mItemLeftY = mCenterY - (mLineHeight / 2);
-        mItemRightX = width -  mStepPadding;
+        mItemRightX = width - mStepPadding;
         mItemRightY = 0.5f * (mStepBarHeight + mLineHeight);
         mDelta = (mItemRightX - mItemLeftX) / (mNumOfStep - 1);
         mItemWidth = (mItemRightX - mItemLeftX) / mNumOfStep;
@@ -259,10 +265,11 @@ public class StepsDraw {
 
         paint.setStyle(Paint.Style.FILL);
         selectedPaint.setStyle(Paint.Style.FILL);
+        float fixWidth = mCircleRadius * 0.05f;//简单修正一下,不然圆形和连线之间会有一点空隙
         //画出步骤之间的连接线
         for (int i = 0; i < mStepContainerXPosition.size() - 1; i++) {
-            final float pos = mStepContainerXPosition.get(i) + mCircleRadius;
-            final float pos2 = mStepContainerXPosition.get(i + 1) - mCircleRadius;
+            final float pos = mStepContainerXPosition.get(i) + mCircleRadius - fixWidth;
+            final float pos2 = mStepContainerXPosition.get(i + 1) - mCircleRadius + fixWidth;
             canvas.drawRect(pos, mItemLeftY, pos2, mItemRightY,
                     (i < mCurrentPosition) ? selectedPaint : paint);
         }
