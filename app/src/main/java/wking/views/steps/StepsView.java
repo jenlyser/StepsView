@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -40,6 +42,7 @@ public class StepsView extends FrameLayout {
     private int mAnimationColor = Integer.MIN_VALUE;//动画控件的颜色
     private int mAnimationDuration = 1100;//动画时长
     private View mAnimationView;//动态控件
+    private LinearLayout mContainsView;//包裹动态控件,为了修复位移效果
     private List<TextView> mStepTextviews = new ArrayList<>();//所有的textView
 
 
@@ -323,9 +326,11 @@ public class StepsView extends FrameLayout {
             removeView(mItemView);
             mStepTextviews.remove(0);
         }
-        if (mAnimationView != null) {
-            removeView(mAnimationView);
+        if (mContainsView != null) {
+            mContainsView.removeAllViews();
+            removeView(mContainsView);
             mAnimationView = null;
+            mContainsView=null;
         }
         int width = getWidth();
         int height = getHeight();
@@ -370,15 +375,19 @@ public class StepsView extends FrameLayout {
             mItemView.setTextSize(mTextSize);
             mItemView.setMaxLines(mTextMaxLine);
 //            mItemView.setTypeface(null, Typeface.NORMAL);
-            mItemView.setTextAlignment(TEXT_ALIGNMENT_CENTER);
+
             //设置位置
             mItemView.setX(stepsPosition.get(i) - (itemWidth / 2));
             mItemView.setY(mTextTop);
-            textWidth = getTextWidth(mItemView.getPaint(), mSteps[i]);
-            //文本坐标位置微调,设置为居中
-            if (textWidth < itemWidth) {
-                float addLeft = (float) ((itemWidth - textWidth) / 2);
-                mItemView.setX(stepsPosition.get(i) - (itemWidth / 2) + addLeft);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                mItemView.setTextAlignment(TEXT_ALIGNMENT_CENTER);
+            } else {
+                textWidth = getTextWidth(mItemView.getPaint(), mSteps[i]);
+                //文本坐标位置微调,设置为居中
+                if (textWidth < itemWidth) {
+                    float addLeft = (float) ((itemWidth - textWidth) / 2);
+                    mItemView.setX(stepsPosition.get(i) - (itemWidth / 2) + addLeft);
+                }
             }
             //设置宽高
             itemLayout = new ViewGroup.LayoutParams((int) itemWidth, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -401,15 +410,21 @@ public class StepsView extends FrameLayout {
         float stepCircleRadius = mStepDraw.getCircleRadius();
         int width = (int) (stepCircleRadius * 2);
 
+        //创建包裹控件
+        mContainsView=new LinearLayout(getContext());
+        FrameLayout.LayoutParams containsLayoutParams = new FrameLayout.LayoutParams(width, width);
+        mContainsView.setY(mStepDraw.getCenterY() - stepCircleRadius);
+        mContainsView.setX(mStepDraw.getStepsXPosition(mCurrentPosition) - stepCircleRadius);
+        mContainsView.setLayoutParams(containsLayoutParams);
+        this.addView(mContainsView);
+
         //创建动画控件
         mAnimationView = new View(getContext());
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(width, width);
-//        mAnimationView.setX(mStepDraw.getStepsXPosition(mCurrentPosition) - stepCircleRadius);
-//        mAnimationView.setY(mStepDraw.getCenterY() - stepCircleRadius);
-        layoutParams.leftMargin = (int) (mStepDraw.getStepsXPosition(mCurrentPosition) - stepCircleRadius);
-        layoutParams.topMargin = (int) (mStepDraw.getCenterY() - stepCircleRadius);
+//        layoutParams.leftMargin = (int) (mStepDraw.getStepsXPosition(mCurrentPosition) - stepCircleRadius);
+//        layoutParams.topMargin = (int) (mStepDraw.getCenterY() - stepCircleRadius);
         mAnimationView.setLayoutParams(layoutParams);
-        this.addView(mAnimationView);
+        mContainsView.addView(mAnimationView);
         //创建动画控件背景
         GradientDrawable gd = new GradientDrawable();
         int animationViewBg = mAnimationColor == Integer.MIN_VALUE ? Color.WHITE : mAnimationColor;
@@ -417,6 +432,7 @@ public class StepsView extends FrameLayout {
         gd.setCornerRadius((int) stepCircleRadius);
         mAnimationView.setBackgroundDrawable(gd);
 
+        //开始动画
         startAnimation();
     }
 

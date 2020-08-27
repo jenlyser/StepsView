@@ -9,7 +9,7 @@ import wking.views.steps.StepsView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String[] mSteps = {"步骤1", "步骤2", "完成"};
+    private String[] mSteps = {"步骤1", "步骤2","1" ,"完成"};
     private String[] mSteps2 = {"步骤1", "步骤2", "步骤3", "步骤4", "完成"};
     private String[] mSteps3 = {"动画", "缩放动画", "透明动画", "动画颜色", "动画时长"};
     private String[] mSteps4 = {"文字","文字少能居中", "文字多会换行文字多会换行","字体颜色","文字大小"};
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
         StepsView stepsView5=findViewById(R.id.steps5);
         stepsView5.setSteps(mSteps5)
-                .setStepPadding(60)
+                .setStepPadding(70)
                 .setStepBarHeight(80)
                 .setStepsColor(Color.parseColor("#787878"))
                 .setProgressColor(Color.parseColor("#0f9933"))
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
         StepsView stepsView6=findViewById(R.id.steps6);
         stepsView6.setSteps(mSteps5)
-                .setStepPadding(60)
+                .setStepPadding(80)
                 .setAnimationType(StepsView.AnimationType.Scale)
                 .setTextMarginTop(30)
                 .setStepsColor(Color.parseColor("#515151"))
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
         StepsView stepsView7=findViewById(R.id.steps7);
         stepsView7.setSteps(mSteps5)
-                .setStepPadding(60)
+                .setStepPadding(80)
                 .setAnimationType(StepsView.AnimationType.Alpha)
                 .setTextMarginTop(30)
                 .setStepsColor(Color.parseColor("#515151"))
