@@ -9,6 +9,12 @@ import android.graphics.PorterDuff;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 步骤控件,步骤条部分
+ * @Author Sean
+ * @Date 2020/8/28
+ * @Description
+ */
 public class StepsDraw {
     private Paint paint = new Paint();//画笔
     private Paint selectedPaint = new Paint();//已经选中的画笔

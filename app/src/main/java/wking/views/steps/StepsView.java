@@ -23,6 +23,12 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 步骤控件
+ * @Author Sean
+ * @Date 2020/8/28
+ * @Description 可高度自定义的步骤控件
+ */
 public class StepsView extends FrameLayout {
 
     private StepsDraw mStepDraw;
